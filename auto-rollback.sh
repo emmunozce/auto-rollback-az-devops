@@ -25,8 +25,8 @@ validation_code=$(echo "$validation_result" | tail -n1)
 validation_json=$(echo "$validation_result" | sed '$d')
 [ "$validation_code" -ne 200 ] && { echo "Error: Token invalido o permisos insuficientes."; exit 1; }
 
-# Obtener releases del pipeline (llamada unica)
-releases_url="https://vsrm.dev.azure.com/$org/$project/_apis/release/releases?definitionId=$(releaseDefinitionId)&api-version=7.1"
+# Obtener releases del pipeline
+releases_url="https://vsrm.dev.azure.com/$org/$project/_apis/release/releases?definitionId=$(releaseDefinitionId)&\$expand=artifacts&api-version=7.1"
 releases_result=$(call_api GET "$releases_url")
 releases_code=$(echo "$releases_result" | tail -n1)
 releases_json=$(echo "$releases_result" | sed '$d')
